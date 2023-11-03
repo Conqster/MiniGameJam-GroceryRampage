@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         GlobalEventManager.OnGroceryCollected.AddListener(ChangeColour);
+        GlobalEventManager.OnGroceryDelivered.AddListener(DeliveredGrocery);
     }
 
     void ChangeColour(int item)
@@ -21,8 +22,13 @@ public class Player : MonoBehaviour
         }
         else
         {
-            _renderer.color = Color.red;
-            isCollected = false;
+
         }
+    }
+
+    void DeliveredGrocery()
+    {
+        _renderer.color = Color.red;
+        isCollected = false;
     }
 }

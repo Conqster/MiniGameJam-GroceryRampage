@@ -7,23 +7,24 @@ using UnityEngine.Serialization;
 
 public class UiManager : MonoBehaviour
 {
-    [SerializeField] private int deliveredItems;
+    [SerializeField] private int deliveredItems = 0;
+
     [SerializeField] private TextMeshProUGUI deliveredText;
+
     // Start is called before the first frame update
     private void Awake()
     {
-        GlobalEventManager.OnGroceryCollected.AddListener(UpdateCollectedText);
+        GlobalEventManager.OnGroceryDelivered.AddListener(UpdateCollectedText);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
-    void UpdateCollectedText(int item)
+    void UpdateCollectedText()
     {
-        deliveredItems += item;
-        deliveredText.text = "Collected: " + deliveredItems;
+        deliveredItems += 1;
+        deliveredText.text = "Delivered: " + deliveredItems;
     }
 }

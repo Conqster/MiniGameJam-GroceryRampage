@@ -21,8 +21,12 @@ public class Collectable : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            GlobalEventManager.SendGroceryCollected(1);
-            gameObject.SetActive(false);
+            if (Player.isCollected == false)
+            {
+                GlobalEventManager.SendGroceryCollected(1);
+                gameObject.SetActive(false);
+            }
+
         }
     }
 }
