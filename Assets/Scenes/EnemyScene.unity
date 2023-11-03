@@ -938,7 +938,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5.18
   moveDirection: {x: 0, y: 0}
-  sightRange: 5.08
+  sightRange: 6.5
   player: {fileID: 1253689872}
   playerLM:
     serializedVersion: 2
@@ -961,6 +961,7 @@ MonoBehaviour:
   cooldownTimer: 5.85
   cooldown: 0
   canAttack: 0
+  aPuppet: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
