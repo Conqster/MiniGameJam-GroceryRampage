@@ -50,6 +50,7 @@ public class EnemiesBehaviours : MonoBehaviour
             {
                 Vector2 direction = player.position - transform.position;
                 transform.position += (Vector3)direction * 2.0f;
+                //StartCoroutine(MoveTowards(direction * 2.0f));
                 cooldown = true;
                 cooldownTime = 0.0f;
             }
@@ -89,6 +90,16 @@ public class EnemiesBehaviours : MonoBehaviour
 
     }
 
+    IEnumerator MoveTowards(Vector2 target)
+    {
+        for(int i = 0; i < 10; i++)
+        {
+            if(i > 0)
+                transform.position = target * i / 10;
+
+            yield return null;  
+        }
+    }
 
 
     private bool CanAttackPlayer()
