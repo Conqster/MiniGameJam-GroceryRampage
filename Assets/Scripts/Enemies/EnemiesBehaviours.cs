@@ -24,6 +24,14 @@ public class EnemiesBehaviours : MonoBehaviour
     public bool cooldown = false;
 
     public bool canAttack = false;
+    [Tooltip("Check Box for Manager to handle attacking")]
+    public bool aPuppet = false;
+    private bool orderRecieved = false;
+    public bool OrderRecieved
+    {
+        set { orderRecieved = value; }
+    }
+
 
     private void Start()
     {
@@ -36,22 +44,47 @@ public class EnemiesBehaviours : MonoBehaviour
 
         canAttack = CanAttackPlayer();
 
-        if(canAttack && !cooldown)
+        if(!aPuppet)
         {
-            Vector2 direction = player.position - transform.position;
-            transform.position += (Vector3)direction * 2.0f;
-            cooldown = true;
-            cooldownTime = 0.0f;
-        }
-
-        if(cooldown)
-        {
-            cooldownTime += Time.deltaTime;
-            if(cooldownTime > cooldownTimer)
+            if (canAttack && !cooldown)
             {
-                cooldown = false;
+                Vector2 direction = player.position - transform.position;
+                transform.position += (Vector3)direction * 2.0f;
+                cooldown = true;
+                cooldownTime = 0.0f;
+            }
+
+            if (cooldown)
+            {
+                cooldownTime += Time.deltaTime;
+                if (cooldownTime > cooldownTimer)
+                {
+                    cooldown = false;
+                }
             }
         }
+        else
+        {
+            if (canAttack && !cooldown && orderRecieved)
+            {
+                Vector2 direction = player.position - transform.position;
+                transform.position += (Vector3)direction * 2.0f;
+                cooldown = true;
+                cooldownTime = 0.0f;
+                orderRecieved = false;
+            }
+
+            if (cooldown)
+            {
+                cooldownTime += Time.deltaTime;
+                if (cooldownTime > cooldownTimer)
+                {
+                    cooldown = false;
+                }
+            }
+        }
+
+
 
 
     }
@@ -87,6 +120,16 @@ public class EnemiesBehaviours : MonoBehaviour
         }
         return attack;
     }
+
+
+    public bool CanAttackNow()
+    {
+        bool attack = false;
+        attack = CanAttackNow() && !cooldown;
+
+        return attack;
+    }
+
 
     private void LateUpdate()
     {
